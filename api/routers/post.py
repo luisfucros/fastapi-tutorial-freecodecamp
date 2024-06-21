@@ -4,10 +4,8 @@ from typing import List, Optional
 
 from sqlalchemy import func
 # from sqlalchemy.sql.functions import func
-import models
-import schemas
-import oauth2
-from database import get_db
+from api import models, schemas, oauth2
+from api.database import get_db
 
 
 router = APIRouter(
