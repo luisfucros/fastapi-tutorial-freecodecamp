@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from api.main import app
 
-from tests.config import settings
+from api.config import settings
 from api.database import get_db
 from api.database import Base
 from api.oauth2 import create_access_token
