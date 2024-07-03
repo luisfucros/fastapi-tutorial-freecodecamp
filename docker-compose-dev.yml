@@ -9,7 +9,7 @@ services:
     volumes:
       - ./api:/app/api
     env_file:
-        - ./.env
+        - ./api/.env
     # environment:
     #   - DATABASE_HOSTNAME=postgres
     #   - DATABASE_PORT=5432
