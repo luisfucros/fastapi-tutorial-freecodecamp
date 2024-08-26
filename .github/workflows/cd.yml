@@ -24,14 +24,14 @@ jobs:
           chmod 400 ~/.ssh/deploy_key.pem
           cat >>~/.ssh/config <<EOT
           Host app_api
-            HostName ${EC2_DNS}
+            HostName 54.211.223.58
             User ubuntu
             IdentityFile ~/.ssh/deploy_key.pem
             StrictHostKeyChecking no
           EOT
       - name: Wait for backend folder
         run: |
-         ssh -i ~/.ssh/deploy_key.pem ubuntu@${{ secrets.EC2_DNS }} 'until [ -d backend/ ]; do echo "Directory backend/ does not exist yet..."; sleep 5; done; echo "Directory backend/ found."'
+         ssh -i ~/.ssh/deploy_key.pem ubuntu@$54.211.223.58 'until [ -d backend/ ]; do echo "Directory backend/ does not exist yet..."; sleep 5; done; echo "Directory backend/ found."'
       # - name: Pull repo changes
       #   run: |
       #     ssh app_api 'cd backend && git fetch && git checkout main && git pull origin main'
