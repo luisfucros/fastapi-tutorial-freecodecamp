@@ -8,6 +8,10 @@ on:
     branches:
     - main
 
+env:
+  DEPLOY_KEY_PRIV: ${{ secrets.DEPLOY_KEY_PRIV }}
+  EC2_DNS: ${{ secrets.EC2_DNS }}
+
 jobs:
   deploy-api:
     runs-on: ubuntu-latest
@@ -16,18 +20,18 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
-          echo "${{ secrets.DEPLOY_KEY_PRIV }}" > ~/.ssh/deploy_key.pem
+          echo "DEPLOY_KEY_PRIV" > ~/.ssh/deploy_key.pem
           chmod 400 ~/.ssh/deploy_key.pem
           cat >>~/.ssh/config <<EOT
           Host app_api
-            HostName ${{ secrets.EC2_DNS }}
+            HostName $EC2_DNS
             User ubuntu
             IdentityFile ~/.ssh/deploy_key.pem
             StrictHostKeyChecking no
           EOT
       - name: Wait for backend folder
         run: |
-         ssh -i ~/.ssh/deploy_key.pem ubuntu@${{ secrets.EC2_DNS }}
+         ssh -i ~/.ssh/deploy_key.pem ubuntu@$EC2_DNS
       # - name: Pull repo changes
       #   run: |
       #     ssh app_api 'cd backend && git fetch && git checkout main && git pull origin main'
