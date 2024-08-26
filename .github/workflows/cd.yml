@@ -17,7 +17,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh/
           echo "${{ secrets.DEPLOY_KEY_PRIV }}" > ~/.ssh/deploy_key.pem
-          chmod 400 ~/.ssh/deploy_key
+          chmod 400 ~/.ssh/deploy_key.pem
           cat >>~/.ssh/config <<EOT
           Host app_api
             HostName ${{ secrets.EC2_DNS }}
