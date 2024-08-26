@@ -31,7 +31,7 @@ jobs:
           EOT
       - name: Wait for backend folder
         run: |
-         ssh -i ~/.ssh/deploy_key.pem ubuntu@${EC2_DNS}
+         ssh -i ~/.ssh/deploy_key.pem ubuntu@${EC2_DNS} 'until [ -d backend/ ]; do echo "Directory backend/ does not exist yet..."; sleep 5; done; echo "Directory backend/ found."'
       # - name: Pull repo changes
       #   run: |
       #     ssh app_api 'cd backend && git fetch && git checkout main && git pull origin main'
