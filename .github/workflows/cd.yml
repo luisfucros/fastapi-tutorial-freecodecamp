@@ -16,7 +16,7 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
-          echo ${{ secrets.DEPLOY_KEY_PRIV }} > ~/.ssh/deploy_key
+          echo "${{ secrets.DEPLOY_KEY_PRIV }}" > ~/.ssh/deploy_key
           chmod 400 ~/.ssh/deploy_key
           cat >>~/.ssh/config <<EOT
           Host app_api
