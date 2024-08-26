@@ -16,13 +16,13 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
-          echo "${{ secrets.DEPLOY_KEY_PRIV }}" > ~/.ssh/deploy_key
+          echo "${{ secrets.DEPLOY_KEY_PRIV }}" > ~/.ssh/deploy_key.pem
           chmod 400 ~/.ssh/deploy_key
           cat >>~/.ssh/config <<EOT
           Host app_api
             HostName ${{ secrets.EC2_DNS }}
             User ubuntu
-            IdentityFile ~/.ssh/deploy_key
+            IdentityFile ~/.ssh/deploy_key.pem
             StrictHostKeyChecking no
           EOT
       - name: Wait for backend folder
