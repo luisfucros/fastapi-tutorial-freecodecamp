@@ -65,6 +65,29 @@ variable "db_password" {
   sensitive   = true
 }
 
+variable "db_port" {
+  description = "The database port"
+  type        = number
+  default     = 5432
+}
+
+variable "secret_key" {
+  description = "The secret key for the application"
+  type        = string
+}
+
+variable "algorithm" {
+  description = "The algorithm for token generation"
+  type        = string
+  default     = "HS256"
+}
+
+variable "access_token_expire_minutes" {
+  description = "Access token expiration time in minutes"
+  type        = number
+  default     = 120
+}
+
 variable "project_name" {
   description = "The project name tag for resources"
   type        = string
