@@ -25,7 +25,7 @@ jobs:
           cat >>~/.ssh/config <<EOT
           Host app_api
             HostName $EC2_DNS
-            User ec2-user
+            User ubuntu
             IdentityFile ~/.ssh/deploy_key
             StrictHostKeyChecking no
           EOT
