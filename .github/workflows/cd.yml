@@ -24,14 +24,14 @@ jobs:
           chmod 400 ~/.ssh/deploy_key.pem
           cat >>~/.ssh/config <<EOT
           Host app_api
-            HostName $EC2_DNS
+            HostName ${EC2_DNS}
             User ubuntu
             IdentityFile ~/.ssh/deploy_key.pem
             StrictHostKeyChecking no
           EOT
       - name: Wait for backend folder
         run: |
-         ssh -i ~/.ssh/deploy_key.pem ubuntu@$EC2_DNS
+         ssh -i ~/.ssh/deploy_key.pem ubuntu@${EC2_DNS}
       # - name: Pull repo changes
       #   run: |
       #     ssh app_api 'cd backend && git fetch && git checkout main && git pull origin main'
