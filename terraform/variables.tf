@@ -88,6 +88,22 @@ variable "access_token_expire_minutes" {
   default     = 120
 }
 
+variable "repository_name" {
+  description = "ECR repository name"
+  type        = string
+}
+
+variable "lambda_function_name" {
+  description = "Lambda function name"
+  type        = string
+}
+
+variable "image_version" {
+  description = "ECR repository name"
+  type        = string
+  default = "latest"
+}
+
 variable "project_name" {
   description = "The project name tag for resources"
   type        = string
