@@ -3,11 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from api.database import engine
 from api.routers import post, user, auth, vote
+from mangum import Mangum
+import os
 
 
 # models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(root_path=os.getenv("ROOT_PATH", "/dev/"))
+handler = Mangum(app)
 
 origins = ["*"]
 
