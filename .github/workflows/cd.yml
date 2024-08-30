@@ -12,27 +12,42 @@ jobs:
   deploy-api:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$DEPLOY_KEY_PRIV" > ~/.ssh/deploy_key
-          chmod 400 ~/.ssh/deploy_key
-          cat >>~/.ssh/config <<EOT
-          Host app_api
-            HostName $EC2_DNS
-            User ubuntu
-            IdentityFile ~/.ssh/deploy_key
-            StrictHostKeyChecking no
-          EOT
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
 
-        env:
-          DEPLOY_KEY_PRIV: ${{ secrets.DEPLOY_KEY_PRIV }}
-          EC2_DNS: ${{ secrets.EC2_DNS }}
+#       - name: Set up Python
+#         uses: actions/setup-python@v2
+#         with:
+#           python-version: '3.11.5'
 
-      - name: Wait for backend folder
-        run: |
-         ssh app_api 'mkdir backend'
-      # - name: Pull repo changes
-      #   run: |
-      #     ssh app_api 'cd backend && git fetch && git checkout main && git pull origin main'
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: ${{ secrets.AWS_REGION }}
+
+#       - name: Deploy ECR using Terraform
+#         run: |
+#           cd terraform/deployment
+#           terraform init
+#           terraform apply \
+#             -target=aws_ecr_repository.ecr -auto-approve \
+#             -var="repository_name=${{ vars.REPO_NAME }}" \
+#             -auto-approve
+
+#       - name: Build and Push Docker Image to ECR
+#         run: |
+#           IMAGE_URI="${{ vars.REGISTRY_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ vars.REPO_NAME }}:latest"
+#           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${IMAGE_URI}
+#           docker build -t ${IMAGE_URI} -f src/app/web-service-mlflow/LambdaDockerfile src/app/web-service-mlflow && \
+#           docker push ${IMAGE_URI}
+
+#       - name: Deploy Infrastructure using Terraform
+#         run: |
+#           cd terraform/deployment
+#           terraform init
+#           terraform apply \
+#             -var="repository_name=${{ vars.REPO_NAME }}" \
+#             -auto-approve
