@@ -12,30 +12,30 @@ jobs:
   deploy-api:
     runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-#       - name: Set up Python
-#         uses: actions/setup-python@v2
-#         with:
-#           python-version: '3.11.5'
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11.5'
 
-#       - name: Configure AWS credentials
-#         uses: aws-actions/configure-aws-credentials@v1
-#         with:
-#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#           aws-region: ${{ secrets.AWS_REGION }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-#       - name: Deploy ECR using Terraform
-#         run: |
-#           cd terraform/deployment
-#           terraform init
-#           terraform apply \
-#             -target=aws_ecr_repository.ecr -auto-approve \
-#             -var="repository_name=${{ vars.REPO_NAME }}" \
-#             -auto-approve
+      - name: Deploy ECR using Terraform
+        run: |
+          cd terraform
+          terraform init
+          terraform apply \
+            -target=aws_ecr_repository.ecr -auto-approve \
+            -var="repository_name=${{ vars.REPO_NAME }}" \
+            -auto-approve
 
 #       - name: Build and Push Docker Image to ECR
 #         run: |
