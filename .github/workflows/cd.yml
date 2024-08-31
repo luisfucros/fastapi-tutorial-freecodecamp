@@ -28,15 +28,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Deploy ECR using Terraform
-        run: |
-          cd terraform
-          terraform init
-          terraform apply \
-            -target=aws_ecr_repository.ecr -auto-approve \
-            -var="repository_name=${{ vars.REPO_NAME }}" \
-            -var="lambda_function_name=${{ vars.LAMBDA_NAME }}" \
-            -auto-approve
+      # - name: Deploy ECR using Terraform
+      #   run: |
+      #     cd terraform
+      #     terraform init
+      #     terraform apply \
+      #       -target=aws_ecr_repository.ecr -auto-approve \
+      #       -var="repository_name=${{ vars.REPO_NAME }}" \
+      #       -var="lambda_function_name=${{ vars.LAMBDA_NAME }}" \
+      #       -auto-approve
 
 #       - name: Build and Push Docker Image to ECR
 #         run: |
