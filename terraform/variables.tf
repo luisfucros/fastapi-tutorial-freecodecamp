@@ -71,6 +71,11 @@ variable "db_port" {
   default     = 5432
 }
 
+variable "db_name" {
+  description = "The username for the RDS instance"
+  type        = string
+}
+
 variable "secret_key" {
   description = "The secret key for the application"
   type        = string

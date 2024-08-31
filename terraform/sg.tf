@@ -2,7 +2,7 @@
 resource "aws_security_group" "allow_http_traffic" {
   name        = "allow_http_traffic"
   description = "Allow inbound HTTP traffic"
-  vpc_id      = aws_vpc.resources_vpc.id
+  vpc_id      = aws_vpc.api_vpc.id
 
   ingress {
     description = "HTTP"
@@ -32,14 +32,14 @@ resource "aws_security_group" "allow_http_traffic" {
 
 resource "aws_security_group" "lambda_sg" {
   name_prefix = "lambda_sg"
-  vpc_id      = aws_vpc.resources_vpc.id
+  vpc_id      = aws_vpc.api_vpc.id
 
-  ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  # ingress {
+  #   from_port   = 5432
+  #   to_port     = 5432
+  #   protocol    = "tcp"
+  #   cidr_blocks = ["0.0.0.0/0"]
+  # }
 
   egress {
     from_port   = 0
@@ -47,12 +47,14 @@ resource "aws_security_group" "lambda_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = local.common_tags
 }
 
 resource "aws_security_group" "rds_sg" {
   name        = "rds_sg"
   description = "Allow inbound traffic for RDS"
-  vpc_id      = aws_vpc.resources_vpc.id
+  vpc_id      = aws_vpc.api_vpc.id
 
   ingress {
     from_port   = 5432

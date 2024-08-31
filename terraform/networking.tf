@@ -1,6 +1,6 @@
 # VPC
-resource "aws_vpc" "resources_vpc" {
-  cidr_block           = "10.0.0.0/16"
+resource "aws_vpc" "api_vpc" {
+  cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
 
   tags = merge(
@@ -13,7 +13,7 @@ resource "aws_vpc" "resources_vpc" {
 
 # Subnets
 resource "aws_subnet" "subnet_a" {
-  vpc_id            = aws_vpc.resources_vpc.id
+  vpc_id            = aws_vpc.api_vpc.id
   cidr_block        = var.subnet_a_cidr
   availability_zone = "${var.aws_region}a"
 
@@ -26,7 +26,7 @@ resource "aws_subnet" "subnet_a" {
 }
 
 resource "aws_subnet" "subnet_b" {
-  vpc_id            = aws_vpc.resources_vpc.id
+  vpc_id            = aws_vpc.api_vpc.id
   cidr_block        = var.subnet_b_cidr
   availability_zone = "${var.aws_region}b"
 
@@ -43,14 +43,17 @@ resource "aws_db_subnet_group" "subnet_group" {
   name       = "main"
   subnet_ids = [aws_subnet.subnet_a.id, aws_subnet.subnet_b.id]
 
-  tags = {
-    Name = "Main subnet group"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "Main subnet group"
+    }
+  )
 }
 
 # Internet Gateway
 resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.resources_vpc.id
+  vpc_id = aws_vpc.api_vpc.id
 
   tags = merge(
     local.common_tags,
@@ -62,7 +65,7 @@ resource "aws_internet_gateway" "igw" {
 
 # Public Route Table
 resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.resources_vpc.id
+  vpc_id = aws_vpc.api_vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"

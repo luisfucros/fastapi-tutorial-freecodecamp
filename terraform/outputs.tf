@@ -1,5 +1,5 @@
 output "vpc_id" {
-  value = aws_vpc.resources_vpc.id
+  value = aws_vpc.api_vpc.id
 }
 
 output "subnet_a_id" {
@@ -10,12 +10,7 @@ output "subnet_b_id" {
   value = aws_subnet.subnet_b.id
 }
 
-output "ec2_instance_id" {
-  description = "The ID of the EC2 instance"
-  value = aws_instance.ec2.id
-}
-
 output "rds_instance_endpoint" {
   description = "The endpoint of the RDS instance"
-  value = aws_db_instance.default.endpoint
+  value = aws_db_instance.api_rds.endpoint
 }

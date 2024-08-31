@@ -1,12 +1,12 @@
 # RDS instance
-resource "aws_db_instance" "default" {
+resource "aws_db_instance" "api_rds" {
   allocated_storage      = 20
   engine                 = "postgres"
   instance_class         = "db.t3.micro"
-  db_name                = "api_db"
+  db_name                = var.db_name
   username               = var.db_username
   password               = var.db_password
-  port                   = 5432
+  port                   = var.db_port
   storage_type           = "gp2"
   publicly_accessible    = false
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
