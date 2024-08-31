@@ -104,9 +104,15 @@ variable "lambda_function_name" {
 }
 
 variable "image_version" {
-  description = "ECR repository name"
+  description = "ECR image version"
   type        = string
   default = "latest"
+}
+
+variable "stage_name" {
+  description = "API Gateway Stage Name"
+  type        = string
+  default = "dev"
 }
 
 variable "project_name" {
