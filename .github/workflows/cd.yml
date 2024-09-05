@@ -52,7 +52,7 @@ jobs:
 
       - name: Deploy Infrastructure using Terraform
         run: |
-          cd terraform/deployment
+          cd terraform
           terraform init
           terraform apply \
             -var="repository_name=${{ vars.REPO_NAME }}" \
