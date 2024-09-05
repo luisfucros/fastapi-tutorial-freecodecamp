@@ -31,6 +31,7 @@ variable "vpc_name" {
 variable "ami_id" {
   description = "The AMI ID for the EC2 instance"
   type        = string
+  default     = "ami-0e001c9271cf7f3b9"
 }
 
 variable "instance_type" {
@@ -42,16 +43,19 @@ variable "instance_type" {
 variable "key_name" {
   description = "The key name for the EC2 instance"
   type        = string
+  default     = "turing-test"
 }
 
 variable "instance_name" {
   description = "The name of the EC2 instance"
   type        = string
+  default     = "api-testing"
 }
 
 variable "rds_instance_name" {
   description = "The name of the RDS instance"
   type        = string
+  default     = "api-testing-db"
 }
 
 variable "db_username" {
