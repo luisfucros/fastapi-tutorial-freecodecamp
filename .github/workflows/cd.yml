@@ -35,6 +35,7 @@ jobs:
           terraform apply \
             -target=aws_ecr_repository.ecr -auto-approve \
             -var="repository_name=${{ vars.REPO_NAME }}" \
+            -var="lambda_function_name=${{ vars.LAMBDA_NAME }}" \
             -var="db_name=${{ secrets.DATABASE_NAME }}" \
             -var="db_username=${{ secrets.DATABASE_USERNAME }}" \
             -var="db_username=${{ secrets.DATABASE_USERNAME }}" \
@@ -56,6 +57,8 @@ jobs:
           terraform apply \
             -var="repository_name=${{ vars.REPO_NAME }}" \
             -var="lambda_function_name=${{ vars.LAMBDA_NAME }}" \
+            -var="db_name=${{ secrets.DATABASE_NAME }}" \
+            -var="db_username=${{ secrets.DATABASE_USERNAME }}" \
             -var="db_username=${{ secrets.DATABASE_USERNAME }}" \
             -var="db_password=${{ secrets.DATABASE_PASSWORD }}" \
             -var="secret_key=${{ secrets.SECRET_KEY }}" \
